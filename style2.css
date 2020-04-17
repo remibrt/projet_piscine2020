@@ -1,0 +1,51 @@
+body {
+ padding: 0px;
+ margin: 0px;
+ background: #f2f6e9;
+ font-family: DinPro-Regular;
+}
+.header
+{
+	background-color: #A04000;
+	height: auto;
+}
+.navbar {
+ background:#D95F00;
+}
+.nav-link {
+ color: white;
+ cursor: pointer;
+}
+.navbar-brand
+{
+	font-size: 30px;
+	color: white;
+ 	cursor: pointer;
+}
+.nav-link {
+ margin-right: 1em !important;
+}
+.nav-link:hover {
+ color: #000;
+}
+.navbar-collapse {
+ justify-content: flex-end;
+}
+.dropdown-menu
+{
+	background-color:#D95F00;
+}
+.fond
+{
+	background-color: #f2f6e9;
+	height: auto;
+	width: auto;
+}
+.table p
+{
+	width: 600px;
+}
+.table td,th
+{
+	width: auto;
+}
