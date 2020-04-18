@@ -26,46 +26,35 @@ if(isset($_SESSION['id'])){
           $message = 'Vous devez remplir tous les champs';
         }
     }
-echo "post";
-if(isset($_FILES['photo']) AND !empty($_FILES['photo']['name']))
-{
-$tailleMax = 2097152;
-$extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-echo 'post';
-if($_FILES['photo']['size'] <= $tailleMax)       
-{
-$extentionUpload = strtolower(substr(strrchr($_FILES['photo']['name'], '.'), 1));
-if(in_array($extentionUpload, $extensionsValides))
-{
-  echo "2";
-$req = $conn->query("SELECT id FROM objets ORDER BY id DESC LIMIT 0, 1");
-$lastId = $req->fetch()['id'];
 
-$chemin = "produits/".$lastId.".".$extentionUpload;
-$resultat = move_uploaded_file($_FILES['photo']['tmp_name'], $chemin);
-if($resultat)
-{
-  echo "3";
-$updatephoto = $conn->prepare('UPDATE objets SET photo = :photo WHERE id = :id');
-$updatephoto->execute(array('photo' => $lastId.".".$extentionUpload,'id' => $lastId));
+    if(isset($_FILES['photo']) AND !empty($_FILES['photo']['name']))
+    {
+      $tailleMax = 2097152;
+      $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+    if($_FILES['photo']['size'] <= $tailleMax)       
+    {
+      $extentionUpload = strtolower(substr(strrchr($_FILES['photo']['name'], '.'), 1));
+    if(in_array($extentionUpload, $extensionsValides))
+    {
+      $req = $conn->query("SELECT id FROM objets ORDER BY id DESC LIMIT 0, 1");
+      $lastId = $req->fetch()['id'];
 
-header('Location: profil.php?id='.$_SESSION['id']);
-}
-else
-{
-$msg = "Erreur durant l'importation de votre photo de profil";
-}
-}
-else
-{
-$msg = "Votre photo de profil doit être aux formats : jpg, jpeg, gif ou png.";
-}
-}
-else
-{
-$msg = "Votre photo de profil ne doit pas dépasser 2Mo ";
-} 
-}
+      $chemin = "produits/".$lastId.".".$extentionUpload;
+      $resultat = move_uploaded_file($_FILES['photo']['tmp_name'], $chemin);
+    if($resultat)
+    {
+      $updatephoto = $conn->prepare('UPDATE objets SET photo = :photo WHERE id = :id');
+      $updatephoto->execute(array('photo' => $lastId.".".$extentionUpload,'id' => $lastId));
+    }else{
+      $msg = "Erreur durant l'importation de votre photo de profil";
+    }
+    }else{
+      $msg = "Votre photo de profil doit être aux formats : jpg, jpeg, gif ou png.";
+    }
+    }else{
+      $msg = "Votre photo de profil ne doit pas dépasser 2Mo ";
+    } 
+    }
   
   }
   }else{

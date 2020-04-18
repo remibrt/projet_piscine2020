@@ -42,7 +42,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			</div>
 		<?php } else if(isset($_SESSION['id']) && $_SESSION['id'] != null){require'profil.php';?>
 		<table style="font-size: 30px;">
-			<tr><td>Profil de <?php echo $userinfo['name']; ?></td></tr>
+			<tr><td>Profil de <?php echo $userinfo['prenom']; ?></td></tr>
 			<tr><td>Pseudo = <?php echo $userinfo['pseudo']; ?></td></tr>
 			<tr><td>Prenom = <?php echo $userinfo['prenom']; ?></td></tr>
 			<tr><td>Nom = <?php echo $userinfo['nom']; ?></td></tr>
