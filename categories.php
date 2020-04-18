@@ -9,7 +9,9 @@
 						<td><a href="produits/<?php echo $product['id'];?>.jpg"><img src="produits/<?php echo $product['id'];?>.jpg" style="width: 200px; height: 150px;"></a></td>
 						<td><p><?php echo $product['description']; ?></p></td>
 						<td><?php echo $product['price'];?> €</td>
-						<td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td>
+						<?php if($product['Achat'] == 1){?>
+                        <td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td><?php }else if($product['Achat'] == 2){?>
+                        <td><a href="enchere.php?id=<?php echo $product['id'];?>"><img src="img/marteau.png" style="width: 30px;height: 30px;"></a></td><?php }?>
 					</tr>
 				<?php endforeach ?>
 				</table>
@@ -23,7 +25,9 @@
 						<td><a href="produits/<?php echo $product['id'];?>.jpg"><img src="produits/<?php echo $product['id'];?>.jpg" style="width: 200px; height: 150px;"></a></td>
 						<td><p><?php echo $product['description']; ?></p></td>
 						<td><?php echo $product['price'];?> €</td>
-						<td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td>
+						<?php if($product['Achat'] == 1){?>
+                        <td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td><?php }else if($product['Achat'] == 2){?>
+                        <td><a href="enchere.php?id=<?php echo $product['id'];?>"><img src="img/marteau.png" style="width: 30px;height: 30px;"></a></td><?php }?>
 					</tr>
 				<?php endforeach ?>
 				</table>
@@ -38,7 +42,9 @@
 						<td><a href="produits/<?php echo $product['id'];?>.jpg"><img src="produits/<?php echo $product['id'];?>.jpg" style="width: 200px; height: 150px;"></a></td>
 						<td><p><?php echo $product['description']; ?></p></td>
 						<td><?php echo $product['price'];?> €</td>
-						<td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td>
+                        <?php if($product['Achat'] == 1){?>
+                        <td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td><?php }else if($product['Achat'] == 2){?>
+                        <td><a href="enchere.php?id=<?php echo $product['id'];?>"><img src="img/marteau.png" style="width: 30px;height: 30px;"></a></td><?php }?>
 					</tr>
 				<?php endforeach ?>
 				</table>

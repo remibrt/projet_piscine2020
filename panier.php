@@ -23,7 +23,7 @@ if(isset($_GET['del']))
 					</tr>
 				<?php endforeach; } else{?><p>Votre panier est vide</p><?php } ?>
 				</table>
-				<a href="index.php">Continuer mes achats</a>
+				<a href="acheter.php">Continuer mes achats</a>
 			</div>
 		</div>
 

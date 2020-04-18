@@ -7,7 +7,7 @@ body {
 .header
 {
 	background-color: #A04000;
-	height: auto;
+	height: 1500px;
 }
 .navbar {
  background:#D95F00;
@@ -38,7 +38,7 @@ body {
 .fond
 {
 	background-color: #f2f6e9;
-	height: auto;
+	height: 1400px;
 	width: auto;
 }
 .table p
