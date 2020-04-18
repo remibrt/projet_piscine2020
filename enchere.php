@@ -3,6 +3,14 @@
 if (isset($_GET['id'])){
   if(isset($_SESSION['id'])){
     if($_SESSION['rang'] == 3){
+        $dejaEncherie = $conn->prepare("SELECT * FROM encheres WHERE id_acheteur = ?");
+        $dejaEncherie ->execute(array($_SESSION['id'])); 
+        $nbEncheres = $dejaEncherie->rowCount();
+          if($nbEncheres >= 1){
+          exit('Vous avez deja encherie sur cette objet');
+        }
+        echo $nbEncheres;
+
       if(isset($_POST["submit"])){
         $price = intval($_POST['price']);
         $id_objet = intval($_GET['id']);

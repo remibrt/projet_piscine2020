@@ -4,7 +4,7 @@ require 'ajout_article.php';?>
 <div class="fond">
 	<div class="vendre" style="text-justify; margin-left: 40px; font-size: 20px;">
 		<h1>Ajouter un article à vendre :</h1><br>
-		<form method="POST" action="vendre.php">
+		<form method="POST" action="vendre.php" enctype="multipart/form-data">
 			<table>
 			<tr><td>Type d'objet :</td>
  			<td><select name="typeannonce"> 
@@ -24,7 +24,9 @@ require 'ajout_article.php';?>
   			<tr><td>Prix : </td>
  			 <td><input name="price" type="text" placeholder="price" value="<?php if(isset($_POST['price'])) {echo $_POST['price'];} ?>" /></td></tr>
  			 <tr><td>Description : </td>
- 			 <td><input name="description" type="text" placeholder="description" value="<?php if(isset($_POST['description'])) {echo $_POST['description'];} ?>" /></td></tr>
+ 			 <td><input name="description" type="text" placeholder="description" value="<?php if(isset($_POST['description'])) {echo $_POST['description'];}
+        ?>" /></td></tr>
+        <input type='file' name="photo">
 
  			 <tr><td><input type="submit" value="Valider" name="submit"></td></tr>
  			</table>

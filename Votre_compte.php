@@ -42,7 +42,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			</div>
 		<?php } else if(isset($_SESSION['id']) && $_SESSION['id'] != null){require'profil.php';?>
 		<table style="font-size: 30px;">
-			<tr><td>Profil de <?php echo $userinfo['prenom']; ?></td></tr>
+			<tr><td>Profil de <?php echo $userinfo['name']; ?></td></tr>
 			<tr><td>Pseudo = <?php echo $userinfo['pseudo']; ?></td></tr>
 			<tr><td>Prenom = <?php echo $userinfo['prenom']; ?></td></tr>
 			<tr><td>Nom = <?php echo $userinfo['nom']; ?></td></tr>
@@ -50,5 +50,47 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			<tr><td><?php if(isset($_SESSION['id']) AND $userinfo['id'] == $_SESSION['id']){ ?>
  				<a href="Votre_compte.php?deco=1">Se déconnecter</a><?php }?></td></tr>
 		</table><?php }else {session_destroy();}?>
+		<?php 
+		if(isset($_SESSION['id'])){
+			if($_SESSION['rang'] == 1){
+			    $reqobjets = $conn->prepare('SELECT * FROM objets WHERE id_vendeur = ?');
+			    $reqobjets->execute(array($_SESSION['id']));
+		?>
+		<h1>Mes Objets à vendre</h1>
+		<?php 	while ($objetInfo = $reqobjets->fetch()) { ?>
+		<table style="font-size: 30px;">
+			<tr><td><?php echo $objetInfo['name']; ?></td></tr>
+			<tr><td><?php echo $objetInfo['price']; ?></td></tr>
+			<tr><td><?php echo $objetInfo['description']; ?></td></tr>
+			<?php if($objetInfo['datefin'] > date("Y-m-d")){ 
+				$reqenchere = $conn->prepare('SELECT * FROM encheres WHERE id_objet = ?');
+			    $reqenchere->execute(array($objetInfo['id']));
+			    $reqenchere2 = $conn->prepare('SELECT * FROM encheres WHERE id_objet = ?');
+			    $reqenchere2->execute(array($objetInfo['id']));
+
+			    $prixmax = 0;
+			    $Deuxprixmax = 0;
+			    while ($enchere = $reqenchere->fetch()) {
+			    	if($prixmax < $enchere['prix']){
+			    		$prixmax = $enchere['prix'];
+			    		$id_gagnant = $enchere['id_acheteur'];
+			    	}
+			    }
+			   	while ($enchere = $reqenchere2->fetch()) {
+			    	if($Deuxprixmax < $enchere['prix'] AND $enchere['prix'] != $prixmax){
+			    		$Deuxprixmax = $enchere['prix'];
+			    	}
+			    }
+			    $prix_gagnant = $Deuxprixmax +1;
+
+			    echo "L'acheteur avec l'id:".$id_gagnant." à gagné l'enchère au prix de".$prix_gagnant;
+			} ?>
+		</table>
+		<?php 
+				}
+			}
+		}
+		?>
 	</div>
+
 <?php require 'footer.php';?>
