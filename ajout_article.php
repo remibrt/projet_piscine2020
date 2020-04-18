@@ -68,7 +68,7 @@ if(isset($_SESSION['id'])){
   {
     echo '<span class="round radius label" style="background-color:red;">' .$message. "</span>";
   }
-  if(isset($message))
+  if(isset($msg))
   {
     echo '<span class="round radius label" style="background-color:red;">' .$msg. "</span>";
   }
