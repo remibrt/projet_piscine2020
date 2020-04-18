@@ -1,5 +1,6 @@
 <?php require 'header.php';
 require 'connexion.php';
+
 if(isset($_GET['deco']) && $_GET['deco'] == 1)
 {
 	$_SESSION = array();
@@ -40,9 +41,10 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
       				<?php require 'inscription.php'; ?>
 				</div>
 			</div>
+
 		<?php } else if(isset($_SESSION['id']) && $_SESSION['id'] != null){require'profil.php';?>
 		<table style="font-size: 30px;">
-			<tr><td>Profil de <?php echo $userinfo['name']; ?></td></tr>
+			<tr><td>Profil de <?php echo $userinfo['prenom']; ?></td></tr>
 			<tr><td>Pseudo = <?php echo $userinfo['pseudo']; ?></td></tr>
 			<tr><td>Prenom = <?php echo $userinfo['prenom']; ?></td></tr>
 			<tr><td>Nom = <?php echo $userinfo['nom']; ?></td></tr>
@@ -50,6 +52,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			<tr><td><?php if(isset($_SESSION['id']) AND $userinfo['id'] == $_SESSION['id']){ ?>
  				<a href="Votre_compte.php?deco=1">Se déconnecter</a><?php }?></td></tr>
 		</table><?php }else {session_destroy();}?>
+
 		<?php 
 		if(isset($_SESSION['id'])){
 			if($_SESSION['rang'] == 1){
@@ -62,6 +65,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			<tr><td><?php echo $objetInfo['name']; ?></td></tr>
 			<tr><td><?php echo $objetInfo['price']; ?></td></tr>
 			<tr><td><?php echo $objetInfo['description']; ?></td></tr>
+
 			<?php if($objetInfo['datefin'] > date("Y-m-d")){ 
 				$reqenchere = $conn->prepare('SELECT * FROM encheres WHERE id_objet = ?');
 			    $reqenchere->execute(array($objetInfo['id']));

@@ -49,7 +49,6 @@ if($resultat)
 $updatephoto = $conn->prepare('UPDATE objets SET photo = :photo WHERE id = :id');
 $updatephoto->execute(array('photo' => $lastId.".".$extentionUpload,'id' => $lastId));
 
-header('Location: profil.php?id='.$_SESSION['id']);
 }
 else
 {
