@@ -1,5 +1,6 @@
 <?php require 'header.php'; require 'db.php';?>
 		<div class="fond">
+			<a href="acheter.php">Afficher tous les articles</a>
 			<div class="Ferraille">
 				<table class="table">
 					<h2 style="margin-left: 20px;">Ferrailles ou Trésors : </h2><br>

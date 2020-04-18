@@ -17,7 +17,6 @@
        			Menu
       		</a>
       		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-       			<a class="dropdown-item" href="categories.php"><p>Catégories</p></a>
         		<a class="dropdown-item" href="acheter.php"><p>Acheter</p></a>
         		<a class="dropdown-item" href="vendre.php"><p>Vendre</p></a>
         	</div>

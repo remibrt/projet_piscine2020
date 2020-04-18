@@ -7,6 +7,7 @@ require 'db.php';
 			<table class="table">
 			<h1 style="margin-left: 20px;">Nouveautés :</h1><br><br>
 			<tr><th>Produits : </th> <th>Description : </th><th>Prix : </th></tr>
+			<a href="categories.php" style="margin-left: 50px;">Afficher par catégories</a>
 				<?php foreach ($req as $product):?>
 					<tr>
 						<td><a href="produits/<?php echo $product['id'];?>.jpg"><img src="produits/<?php echo $product['id'];?>.jpg" style="width: 200px; height: 150px;"></a></td>
