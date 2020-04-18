@@ -40,6 +40,8 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
       				<?php require 'inscription.php'; ?>
 				</div>
 			</div>
+
+
 		<?php } else if(isset($_SESSION['id']) && $_SESSION['id'] != null){require'profil.php';?>
 		<table style="font-size: 30px;">
 			<tr><td>Profil de <?php echo $userinfo['prenom']; ?></td></tr>
@@ -50,7 +52,8 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			<tr><td><?php if(isset($_SESSION['id']) AND $userinfo['id'] == $_SESSION['id']){ ?>
  				<a href="Votre_compte.php?deco=1">Se déconnecter</a><?php }?></td></tr>
 		</table><?php }else {session_destroy();}?>
-		<?php 
+		<?php
+
 		if(isset($_SESSION['id'])){
 			if($_SESSION['rang'] == 2){
 			    $reqobjets = $conn->prepare('SELECT * FROM objets WHERE id_vendeur = ?');
@@ -88,11 +91,28 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 				echo "objet en court de vente";
 			} ?>
 		</table>
-		<?php 
+				<?php 
 				}
 			}
+
 		}
-		?>
+				if ($_SESSION['rang'] == 3) {
+				$reqoffre = $conn->query('SELECT * FROM meilleure_offre WHERE id_acheteur = '.$_SESSION['id']);?>
+				<table class="table">
+				<tr>Vos offres d'achats : </tr>				
+					<?php 
+					foreach ($reqoffre as $offer){?>
+
+						<?php $reqall = $conn->query('SELECT * FROM objets WHERE id ='.$offer['id_objet']);
+						foreach ($reqall as $product){?>
+							<tr>
+								<td><a href="produits/<?php echo $product['id'];?>.jpg"><img src="produits/<?php echo $product['id'];?>.jpg" style="width: 100px; height: 75px;"></a></td>
+								<td><p class="text-justify"><?php echo $product['description']; ?></p>
+								<td><p>Offre : <?php echo $offer['offre'];?></p></td>
+							</tr>
+					<?php } } ?>
+				</table>
+			<?php } ?>
 	</div>
 
 <?php require 'footer.php';?>
