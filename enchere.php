@@ -7,7 +7,7 @@ if (isset($_GET['id'])){
         $dejaEncherie ->execute(array($_SESSION['id'])); 
         $nbEncheres = $dejaEncherie->rowCount();
           if($nbEncheres >= 1){
-          exit('Vous avez deja encherie sur cette objet');
+          exit('Vous avez deja encheri sur cet objet');
         }
         echo $nbEncheres;
 
