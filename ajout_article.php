@@ -13,8 +13,8 @@ if(isset($_SESSION['id'])){
 
      if($typeachat == 2){
         if(!empty($_POST['name']) && !empty($_POST['price'])){
-              $insertObjet = $conn->prepare("INSERT INTO objets(name, id_vendeur, price, Categorie, Achat, description, photo, datefin) VALUES(?, ?, ?, ?, ?, ?, ?");
-              $insertObjet ->execute(array($name, $_SESSION['id'], $price, $typeannonce, $typeachat, $description, 'default.png', $datefin));    
+              $insertObjet = $conn->prepare("INSERT INTO objets(name, id_vendeur, price, Categorie, Achat, description, photo, datefin) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+              $insertObjet ->execute(array($name, $_SESSION['id'], $price, $typeannonce, $typeachat, $description, 'default.png', $datefin));   
         }else{
           $message = 'Vous devez remplir tous les champs';
         }

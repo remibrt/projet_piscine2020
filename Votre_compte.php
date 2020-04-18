@@ -52,7 +52,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 		</table><?php }else {session_destroy();}?>
 		<?php 
 		if(isset($_SESSION['id'])){
-			if($_SESSION['rang'] == 1){
+			if($_SESSION['rang'] == 2){
 			    $reqobjets = $conn->prepare('SELECT * FROM objets WHERE id_vendeur = ?');
 			    $reqobjets->execute(array($_SESSION['id']));
 		?>
@@ -84,6 +84,8 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			    $prix_gagnant = $Deuxprixmax +1;
 
 			    echo "L'acheteur avec l'id:".$id_gagnant." à gagné l'enchère au prix de".$prix_gagnant;
+			}else{
+				echo "objet en court de vente";
 			} ?>
 		</table>
 		<?php 
