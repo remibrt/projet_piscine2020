@@ -2,6 +2,8 @@
 require 'ajout_article.php';?>
 
 <div class="fond">
+	<?php if(isset($_SESSION['rang'])){?>
+	<?php if($_SESSION['rang'] == 2 || $_SESSION['rang'] == 1){?>
 	<div class="vendre" style="text-justify; margin-left: 40px; font-size: 20px;">
 		<h1>Ajouter un article à vendre :</h1><br>
 		<form method="POST" action="vendre.php" enctype="multipart/form-data">
@@ -45,6 +47,7 @@ require 'ajout_article.php';?>
 
 
 	</div>
+	<?php }else{?><h4>Vous ne pouvez pas acceder à cette page ca vous n'êtes pas vendeur !</h4><?php }?>
+<?php }else{?><h4>Vous devez être connecté pour acceder à cette page !</h4><?php }?>
 </div>
-
 <?php require 'footer.php';?>

@@ -18,7 +18,8 @@ if(isset($_SESSION['id'])){
         }else{
           $message = 'Vous devez remplir tous les champs';
         }
-      }else{
+      }
+      else{
         if(!empty($_POST['name']) && !empty($_POST['price'])){
               $insertObjet = $conn->prepare("INSERT INTO objets(name, id_vendeur, price, Categorie, Achat, description, photo) VALUES(?, ?, ?, ?, ?, ?, ?)");
               $insertObjet ->execute(array($name, $_SESSION['id'], $price, $typeannonce, $typeachat, $description, 'default.png'));    
@@ -60,8 +61,6 @@ if(isset($_SESSION['id'])){
   }else{
     $message = 'Vous devez etre vendeur (ou administrateur) pour accéder à cette page';
   }
-}else{
-  $message ='Vous devez être connecté pour accéder à cette page';
 }
 
   if(isset($message))

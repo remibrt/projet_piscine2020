@@ -59,7 +59,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			    $reqobjets = $conn->prepare('SELECT * FROM objets WHERE id_vendeur = ?');
 			    $reqobjets->execute(array($_SESSION['id']));
 		?><br><br><br>
-		<h3>Mes Objets à vendre</h3>
+		<h3>Mes Objets à vendre : </h3>
 		<?php while ($objetInfo = $reqobjets->fetch()) {if($objetInfo['Achat'] == 2){?>
 			<table style="font-size: 30px;">
 			<tr><td><?php echo $objetInfo['name']; ?></td></tr>
