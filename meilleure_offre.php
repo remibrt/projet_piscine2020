@@ -22,8 +22,8 @@ require 'header.php';?>
 						<td><p class="text-justify"><?php echo $product['description']; ?></p>
 						<p>Vendu par : <?php echo $pseudo['pseudo']; ?></p></td>
 						<td style="width: 100px; margin-right: 30px;"><?php echo $product['price'];?> €</td>
-						<?php $test = $conn->query('SELECT id_acheteur FROM meilleure_offre WHERE id_objet = '.$product['id']);
-						if(empty($test = $test->fetch())){?>
+						<?php $test = $conn->query('SELECT * FROM meilleure_offre WHERE id_acheteur = '.$_SESSION['id']);
+						if($test = $test->fetchall() == array() || $test[$product['id']] == array()){?>
 						<td>Faire une offre : <form method="post" action="meilleure_offre.php?id=<?php echo $product['id']?>"><input type="number" name="offre"><input type="submit" name="valider"></form>
 							<td>
 

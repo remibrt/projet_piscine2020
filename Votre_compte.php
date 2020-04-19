@@ -51,7 +51,7 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 			<tr><td>Mail = <?php echo $userinfo['mail']; ?></td></tr>
 			<tr><td><?php if(isset($_SESSION['id']) AND $userinfo['id'] == $_SESSION['id']){ ?>
  				<a href="Votre_compte.php?deco=1">Se déconnecter</a><?php }?></td></tr>
-		</table><?php }else {session_destroy();}?>
+		</table><?php }?>
 		<?php
 
 		if(isset($_SESSION['id'])){
@@ -114,29 +114,41 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 
 								<?php $reqoffre = $conn->query('SELECT * FROM meilleure_offre WHERE id_vendeur = '.$_SESSION['id']);
 								while($offer = $reqoffre->fetch()){ ?>
-								<td><p>Offre : <?php echo $offer['offre'];?></p></td>
+									<?php if($offer['offre'] != 0){?>
+								<td><p>Offre : <?php echo $offer['offre'];?></p></td><?php }?>
+
+								<?php if($offer['offre'] == 0){?>
+								<td><p>Contre offre : <?php echo $offer['contre_offre'];?></p></td><?php }?>
+
 							</tr>
-							<tr><a href="Votre_compte.php?ctr=<?php echo $offer['id_acheteur'];?>">Refuser l'offre</a></tr>
-							<tr><a href="Votre_compte.php?ctr=0">Accepter l'offre</a></tr><?php } ?>
+
+							<tr><td><a href="Votre_compte.php?ctr=<?php echo $offer['id_acheteur'];?>">Refuser l'offre</a></td>
+							<td><a href="Votre_compte.php?ctr=0">Accepter l'offre</a></td></tr>
 
 							<?php 
+
 							if(isset($_GET['ctr'])){
 								if($_GET['ctr'] == $offer['id_acheteur'] && $offer['nombre_offre'] <= 5){$acheteur = $_GET['ctr'];?>
-								<form method="POST" action="Votre_compte.php">Faire une contre offre : 
+								<form method="POST">Faire une contre offre : 
 									<input type="number" name="contre_offre">
 									<input type="submit" name="valider">
 								</form>
 
-								<?php $nombre_offre = $nombre_offre + 1;
+
+								<?php if(isset($_POST['contre_offre'])) {
+									  $nombre_offre = $offer['nombre_offre'];
+									  $nombre_offre = $nombre_offre + 1;
+
 									  $supprimer = $conn->prepare('DELETE FROM meilleure_offre WHERE id_objet='.$product['id']);
 									  $supprimer->execute();
 
 									  $remplacer = $conn->prepare('INSERT INTO meilleure_offre(id_objet, id_vendeur, id_acheteur, nombre_offre, offre, contre_offre) VALUES (?,?,?,?,?,?)');
-									  $remplacer ->execute(array($product['id'], $_SESSION['id'], $acheteur, $nombre_offre, 0, $_POST['contre_offre']));
+									  $remplacer ->execute(array($product['id'], $_SESSION['id'], $acheteur, $nombre_offre, 0, $_POST['contre_offre']));}
 									}
 							
 								if($_GET['ctr'] == 0){echo "Vous venez d'accepter l'offre !"; $supprimer = $conn->prepare('DELETE FROM meilleure_offre WHERE id_objet='.$product['id']);$supprimer->execute();} if($offer['nombre_offre'] > 5){echo "Vous ne pouvez pas refuser encore une fois offre";}
 							}
+						}
 								?>
 					</table><?php
 			}
@@ -155,42 +167,46 @@ if(isset($_GET['deco']) && $_GET['deco'] == 1)
 						$product = $reqall->fetch();?>
 					<table class="table">
 
-					<tr>Vos offres postés :
+					<tr><td>Vos offres postés :</td>
 						<td><a href="produits/<?php echo $product['id'];?>.jpg"><img src="produits/<?php echo $product['id'];?>.jpg" style="width: 100px; height: 75px;"></a></td>
 						<td style="text-justify;"><?php echo $product['description']; ?></td>
 						<td>Offre : <?php echo $reponse['offre'];?></td>
-						<td>
-						<?php if($reponse['contre_offre'] == null)
-						{
-							echo "Vous n'avez pas encore eu de réponse à votre offre";
-						}?>
-						</td>
-					</tr>
 
-					
-					<tr>Réponses des vendeurs :
+					<td style="width: 200px;">Réponses des vendeurs :
 							<?php if($reponse['contre_offre'] != null)
 							{
 								?><p><?php echo "Le vendeur vous propose une contre offre de ".$reponse['contre_offre'];?></p><br><br>
-								<tr><a href="Votre_compte.php?ctr=1?>">Refuser l'offre</a></tr>
-								<tr><a href="Votre_compte.php?ctr=0">Accepter l'offre</a></tr>
+								<td><a href="Votre_compte.php?ctr=1?>">Refuser l'offre</a></td>
+								<td><a href="Votre_compte.php?ctr=0">Accepter l'offre</a></td>
 							<?php ?>
 
-							<?php if(isset($_GET['ctr'])){?>
+							<?php if(isset($_GET['ctr'])){
+								if($_GET['ctr'] == 1){?>
 
-								<form method="POST" action="Votre_compte.php">Faire une contre offre : 
-									<input type="number" name="contre_offre">
-									<input type="submit" name="valider">
-								</form>
+								<tr><td style="width: 180px;"><form method="POST">Faire une contre offre : </td>
+									<td><input type="number" name="contre_offre">
+									<input type="submit" name="valider"></td>
+								</form></tr>
 
-								<?php $nombre_offre = $nombre_offre + 1;
+								<?php if(isset($_POST['contre_offre'])){
+									  $nombre_offre = $reponse['nombre_offre'];
+									  $nombre_offre = $nombre_offre + 1;
+
 									  $supprimer = $conn->prepare('DELETE FROM meilleure_offre WHERE id_objet='.$product['id']);
 									  $supprimer->execute();
+
 									  $remplacer = $conn->prepare('INSERT INTO meilleure_offre(id_objet, id_vendeur, id_acheteur, nombre_offre, offre, contre_offre) VALUES (?,?,?,?,?,?)');
-									  $remplacer ->execute(array($product['id'], $product['id_vendeur'], $_SESSION['id'], $nombre_offre, $_POST['contre_offre'],0 ));
+									  $remplacer ->execute(array($product['id'],$product['id_vendeur'], $_SESSION['id'], $nombre_offre, $_POST['contre_offre'],0));}
+									}
+
+									  if($_GET['ctr'] == 0){echo "Vous venez d'accepter l'offre !"; $supprimer = $conn->prepare('DELETE FROM meilleure_offre WHERE id_objet='.$product['id']);$supprimer->execute();}
 									}
 							
-								else{echo "Vous venez d'accepter l'offre !"; $supprimer = $conn->prepare('DELETE FROM meilleure_offre WHERE id_objet='.$product['id']);$supprimer->execute();} }?>
+								 }
+								 if($reponse['contre_offre'] == null)
+								{
+									echo "Vous n'avez pas encore eu de réponse à votre offre";
+								}?></td>
 							</tr>
 						</table>
 						<?php 
