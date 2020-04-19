@@ -19,7 +19,8 @@ require 'db.php';
 						<p>Vendu par : <?php echo $pseudo['pseudo']; ?></p></td>
 					<td><?php echo $product['price'];?> €</td>
 					<?php if($product['Achat'] == 1){?>
-					<td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td><?php }else if($product['Achat'] == 2){?>
+					<td><a class = "add" href="panier.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td>
+					<td><a class = "add" href="achatimmediat.php?id=<?php echo $product['id'];?>"><img src="img/panier.png" style="width: 30px;height: 30px;"></a></td><?php }else if($product['Achat'] == 2){?>
 					<td><a href="enchere.php?id=<?php echo $product['id'];?>"><img src="img/marteau.png" style="width: 30px;height: 30px;"></a></td><?php }else if($product['Achat'] == 3){?>
 					<td><a href="meilleure_offre.php?id=<?php echo $product['id'];?>">Faire une offre</a></td><?php }?>
 					</tr>
